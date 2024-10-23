@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Love?</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background: url('https://cdn.discordapp.com/attachments/1203689403440963594/1298696995560488993/1718228308752.jpg?ex=671a8154&is=67192fd4&hm=3f180a93744c308094c22a25194b0369c6ce2c01e32d758c6e98ddf2cd64feba&') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #ff4b5c;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            margin-top: 30px;
+        }
+
+        button {
+            font-size: 1.5em;
+            padding: 10px 30px;
+            margin: 0 20px;
+            background-color: #ff4b5c;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e43e4b;
+        }
+
+        #noBtn {
+            position: relative;
+        }
+
+        /* Trang kết quả khi bấm "Có" */
+        .result-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url('https://cdn.discordapp.com/attachments/1203689403440963594/1298696995560488993/1718228308752.jpg?ex=671a8154&is=67192fd4&hm=3f180a93744c308094c22a25194b0369c6ce2c01e32d758c6e98ddf2cd64feba&') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            font-size: 2.5em;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            z-index: 100;
+        }
+
+        .result-message {
+            margin-top: 20%;
+        }
+
+        .icon {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            animation: float 10s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+
+        /* Music styling */
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Trang đầu tiên -->
+    <div class="container" id="mainPage">
+        <h1>Cậu có đồng ý làm người yêu tớ không?</h1>
+        <div class="buttons">
+            <button onclick="showResult()">Có</button>
+            <button id="noBtn" onmouseover="moveNoButton()">Không</button>
+        </div>
+    </div>
+
+    <!-- Trang kết quả khi bấm "Có" -->
+    <div class="result-page" id="resultPage">
+        <div class="result-message">
+            Cảm ơn cậu đã đồng ý! Tớ yêu cậu rất nhiều! 💖
+        </div>
+        <div id="icons"></div>
+    </div>
+
+    <!-- Nhạc nền -->
+    <audio autoplay loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        // Khi bấm nút "Có", hiện trang kết quả với hiệu ứng icon bay
+        function showResult() {
+            document.getElementById("mainPage").style.display = "none";
+            document.getElementById("resultPage").style.display = "flex";
+            createIcons();
+        }
+        // Di chuyển nút "Không" đến vị trí ngẫu nhiên
+        function moveNoButton() {
+            const noBtn = document.getElementById("noBtn");
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = "absolute";
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        }
+        // Tạo các icon trái tim bay lên
+        function createIcons() {
+            const iconContainer = document.getElementById("icons");
+            const iconImages = [
+                '❤️', '🌹', '💖', '💘', '💐'
+            ];
+            for (let i = 0; i < 30; i++) {
+                const icon = document.createElement('div');
+                icon.className = 'icon';
+                icon.innerHTML = iconImages[Math.floor(Math.random() * iconImages.length)];
+                icon.style.left = `${Math.random() * 100}vw`;
+                icon.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                icon.style.fontSize = `${Math.random() * 20 + 30}px`;
+                iconContainer.appendChild(icon);
+            }
+        }
+    </script>
+
+</body>
+</html>
